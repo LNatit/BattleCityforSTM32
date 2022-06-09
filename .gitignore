@@ -1,0 +1,5 @@
+/.idea/
+/Drivers/
+/startup/
+/cmake-build-debug/
+/Core/Src/syscalls.c
