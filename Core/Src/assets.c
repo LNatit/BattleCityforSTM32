@@ -635,23 +635,27 @@ uint8_t maps[LVL_NUM][41][41] =
                         {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}
                 }
         };
-Spawn spawns[LVL_NUM] =
+// TODO: fill in level infos
+Level_Info infos[LVL_NUM] =
         {
-                {25, 37, {}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}},
-                {25, 37, {}, {}, {}},
-                {25, 37, {}, {}, {}},
-                {25, 37, {}, {}, {}},
-                {25, 37, {}, {}, {}},
-                {25, 37, {}, {}, {}},
-                {25, 37, {}, {}, {}},
-                {25, 37, {}, {}, {}}
+                {25, 37, {1, 4, 7, 10}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 4},
+                {25, 37, {1, 4, 7, 10}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 4},
+                {25, 37, {1, 4, 7, 10}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 4},
+                {25, 37, {1, 4, 7, 10}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 4},
+                {25, 37, {1, 4, 7, 10}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 4},
+                {25, 37, {1, 4, 7, 10}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 4},
+                {25, 37, {1, 4, 7, 10}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 4},
+                {25, 37, {1, 4, 7, 10}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 4}
         };
 
 extern uint8_t map[41][41];
 extern uint8_t level;
+extern Level_Info *lvl_info;
 
 void AST_Init(void)
 {
+    lvl_info = infos + level;
+
     for (int y = 0; y < 41; ++y)
         for (int x = 0; x < 41; ++x)
             map[y][x] = maps[level][y][x];

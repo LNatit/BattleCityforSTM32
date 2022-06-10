@@ -5,8 +5,8 @@
 #include "ps2.h"
 
 ADC_HandleTypeDef *ADCx;
-uint16_t buffer[2] = {0, 0};
-uint8_t fire = 0;
+uint16_t buffer[2] = {ADC_MIDDLE, ADC_MIDDLE};
+uint8_t pressed = 0;
 
 void PS2_Init(ADC_HandleTypeDef *hadc)
 {
@@ -34,11 +34,11 @@ uint8_t PS2_GetDir(void)
     return flag == 4 ? STILL : direction;
 }
 
-uint8_t PS2_GetFire(void)
+uint8_t PS2_GetPressed(void)
 {
-    if (fire)
+    if (pressed)
     {
-        fire = 0;
+        pressed = 0;
         HAL_NVIC_ClearPendingIRQ(EXTI9_5_IRQn);
         HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
         return 1;
@@ -60,11 +60,18 @@ void PS2_StartSampling(void)
     HAL_ADC_Stop(ADCx);
 }
 
+void PS2_ClearFlag(void)
+{
+    buffer[0] = ADC_MIDDLE;
+    buffer[1] = ADC_MIDDLE;
+    pressed = 0;
+}
+
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-    if (!fire && GPIO_Pin == GPIO_PIN_5)
+    if (!pressed && GPIO_Pin == GPIO_PIN_5)
     {
-        fire = 1;
+        pressed = 1;
         HAL_NVIC_DisableIRQ(EXTI9_5_IRQn);
     }
 }

@@ -14,8 +14,8 @@
 #define POST    2
 
 // Offset macros for tankMapTrans()
-#define PLAYER  -1
-#define ENEMY   i
+#define PLAYER  (-1)
+#define ENEMY   (i)
 
 //游戏主循环，返回游戏是否结束
 void LGC_Init();

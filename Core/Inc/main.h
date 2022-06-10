@@ -49,6 +49,7 @@ extern "C" {
 #define RIGHT   3
 #define STILL   4
 
+
 #define PASS    0
 #define WIN     1
 #define LOSE    2
@@ -57,7 +58,7 @@ extern "C" {
 #define ACK     5
 
 #define LVL_NUM     8
-#define BULLET_NUM  10
+#define BULLET_NUM  12
 #define ENEMY_MAX   4
 
 /* USER CODE END Includes */
@@ -78,6 +79,7 @@ typedef struct      //子弹结构�???
 {
     uint16_t x, y;       //子弹坐标
     uint8_t direction;  //子弹方向
+    uint8_t my;
     uint8_t exist;      //子弹存在与否
     uint8_t initial;    //子弹是否处于初始状�?�的�???
 } Bullet;
@@ -87,7 +89,8 @@ typedef struct
     uint16_t player_x, player_y;
     uint16_t x[ENEMY_MAX], y[ENEMY_MAX];
     uint8_t direction[4];
-} Spawn;
+    uint8_t enemy_num;
+} Level_Info;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/

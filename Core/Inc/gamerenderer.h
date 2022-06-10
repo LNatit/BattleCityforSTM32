@@ -40,7 +40,7 @@ VERSION 0.3.0 UPDATED ON 17/5/2022
 //Global function of GameRenderer
 void RDR_Render(uint8_t init);
 void RDR_PrintMap(uint8_t fast);
-void RDR_PrintScreen(uint8_t flag2go);
+void RDR_PrintScreen();
 
 //functions below should not be called externally
 void printPixel(uint16_t ylocate, uint16_t xlocate, uint16_t colour);

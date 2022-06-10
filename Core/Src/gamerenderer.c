@@ -39,6 +39,9 @@ extern uint8_t dirty_map[41][41];
 extern Tank player, enemy[ENEMY_MAX];
 extern Bullet bullet[BULLET_NUM];
 extern uint8_t map[41][41];
+extern uint8_t level;
+extern uint8_t phrase;
+extern uint8_t remain_enemy;
 
 // TODO: modify logic, using memo locating
 void RDR_Render(uint8_t init)
@@ -53,7 +56,6 @@ void RDR_Render(uint8_t init)
     if (!init)
         for (int i = 0; i < BULLET_NUM; ++i)
             if (bullet[i].exist)
-//    && bullet[i].x != 0 && bullet[i].x != 40 && bullet[i].y != 0 && bullet[i].y != 40
                 printBullet(bullet[i]);
 }
 
@@ -76,10 +78,62 @@ void RDR_PrintMap(uint8_t fast)
     }
 }
 
-void RDR_PrintScreen(uint8_t flag2go)
+void RDR_PrintScreen()
 {
-    LCD_Clear(WHITE);
-    POINT_COLOR = RED;
+    POINT_COLOR = BLACK;
+    LCD_ShowString(30, 400, 200, 12, 12, "Deved by MCU-Group1");
+
+    switch (phrase)
+    {
+        case TITLE:
+            POINT_COLOR = RED;
+            LCD_ShowString(30, 120, 210, 24, 24, ">|BATTLE CITY|<");
+            POINT_COLOR = BLUE;
+            LCD_ShowString(30, 170, 200, 16, 16, "Push the bar to start!");
+            break;
+        case INIT:
+            LCD_ShowString(30, 360, 200, 16, 16, "Now Loading...");
+            break;
+        case PASS:
+            POINT_COLOR = BLUE;
+            LCD_ShowString(30, 60, 200, 16, 16, "Level ");
+            LCD_ShowNum(80, 60, level + 1, 1, 16);
+            POINT_COLOR = GREEN;
+            LCD_ShowString(130, 60, 200, 16, 16, "Life ");
+            LCD_ShowNum(170, 60, player.revive, 1, 16);
+            POINT_COLOR = RED;
+            LCD_ShowString(230, 60, 200, 16, 16, "Enemy ");
+            LCD_ShowNum(280, 60, remain_enemy, 1, 16);
+            break;
+        case WIN:
+            POINT_COLOR = MAGENTA;
+            LCD_ShowString(30, 90, 210, 24, 24, "Congratulations!");
+            break;
+        case LOSE:
+            POINT_COLOR = BRRED;
+            LCD_ShowString(30, 90, 210, 24, 24, "YOU LOSE :(");
+            break;
+        default:
+            // TODO: print acknowledgements
+            POINT_COLOR = BLACK;
+            LCD_ShowString(30, 90, 210, 24, 24, "ACKNOWLEDGEMENTS");
+            POINT_COLOR = BROWN;
+            LCD_ShowString(40, 120, 200, 16, 16, "Developed by MCU_Group1");
+            LCD_ShowString(40, 150, 200, 16, 16, "Module Drivers:");
+            LCD_ShowString(40, 190, 200, 16, 16, "Art Resources:");
+            LCD_ShowString(40, 230, 200, 16, 16, "Game Logic:");
+            LCD_ShowString(40, 270, 200, 16, 16, "Group Leader:");
+            LCD_ShowString(40, 310, 200, 16, 16, "Course Instructor:");
+
+            POINT_COLOR = GRAYBLUE;
+            LCD_ShowString(80, 168, 200, 16, 16, "***");
+            LCD_ShowString(80, 208, 200, 16, 16, "Animus_Sagittarii");
+            LCD_ShowString(80, 248, 200, 16, 16, "***");
+            LCD_ShowString(80, 288, 200, 16, 16, "Locus_Natit");
+            LCD_ShowString(80, 328, 200, 16, 16, "***");
+
+            return;
+    }
 }
 
 void printPixel(uint16_t ylocate, uint16_t xlocate, uint16_t colour)

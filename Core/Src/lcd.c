@@ -2249,7 +2249,7 @@ void LCD_Draw_Circle(u16 x0, u16 y0, u8 r)
 //num:要显示的字符:" "--->"~"
 //size:字体大小 12/16/24/32
 //mode:叠加方式(1)还是非叠加方式(0)
-void LCD_ShowChar(u16 x, u16 y, u8 num, u8 size, u8 mode)
+void LCD_ShowChar(u16 x, u16 y, char num, u8 size, u8 mode)
 {
     u8 temp, t1, t;
     u16 y0 = y;
@@ -2366,14 +2366,14 @@ void LCD_ShowxNum(u16 x, u16 y, u32 num, u8 len, u8 size, u8 mode)
 //x,y:起点坐标
 //width,height:区域大小
 //size:字体大小
-//*p:字符串起始地址
-void LCD_ShowString(u16 x, u16 y, u16 width, u16 height, u8 size, u8 *p)
+//*str:字符串起始地址
+void LCD_ShowString(u16 x, u16 y, u16 width, u16 height, u8 size, char *str)
 {
     u8 x0 = x;
     width += x;
     height += y;
 
-    while ((*p <= '~') && (*p >= ' '))   //判断是不是非法字符!
+    while ((*str <= '~') && (*str >= ' '))   //判断是不是非法字符!
     {
         if (x >= width)
         {
@@ -2383,9 +2383,9 @@ void LCD_ShowString(u16 x, u16 y, u16 width, u16 height, u8 size, u8 *p)
 
         if (y >= height)break; //退出
 
-        LCD_ShowChar(x, y, *p, size, 0);
+        LCD_ShowChar(x, y, *str, size, 0);
         x += size / 2;
-        p++;
+        str++;
     }
 }
 

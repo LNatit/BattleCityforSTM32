@@ -17,6 +17,7 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+#include <stdbool.h>
 #include "main.h"
 #include "adc.h"
 #include "tim.h"
@@ -64,14 +65,14 @@ uint8_t map[41][41];
 uint8_t dirty_map[41][41];
 uint8_t bul_num;
 //int8_t position;
-uint8_t speed = 7;
+//uint8_t speed = 7;
 uint8_t level = 0;
 uint16_t score = 0;
-uint8_t flag = TITLE;
-uint8_t remain_enemy = 4;
+uint8_t phrase = TITLE, phrase_buf;
+uint8_t remain_enemy;
 Tank player, enemy[ENEMY_MAX];
 Bullet bullet[BULLET_NUM];
-Spawn *lvl_spawn;
+Level_Info *lvl_info;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -127,48 +128,21 @@ int main(void)
 
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
-//    RDR_Render(1);
 
     while (TRUE)
     {
+        phrase_buf = phrase;
+
+        RDR_PrintScreen();
         PS2_StartSampling();
 
-        switch (flag)
+        switch (phrase)
         {
-            case PASS:
-                if (player.CD != 0)
-                {
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
-                } else
-                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
-
-                uint8_t dir = PS2_GetDir();
-                uint8_t fire = PS2_GetFire();
-
-                flag = LGC_Tick(dir, fire);
-
-                RDR_Render(0);
-
-                Delay_ms(100);
-
-                break;
-            case WIN:
-                if (level < LVL_NUM)
-                {
-                    level++;
-                    flag = INIT;
-                } else
-                {
-                    level = 0;
-                    flag = ACK;
-                    RDR_PrintScreen(ACK);
-                }
-                break;
-            case LOSE:
-                level = 0;
-                flag = TITLE;
-                RDR_PrintScreen(TITLE);
-
+            case TITLE:
+                if (PS2_GetDir() != STILL)
+                    phrase = INIT;
+                else if (PS2_GetPressed())
+                    phrase = ACK;
                 break;
             case INIT:
                 // Game Init
@@ -177,25 +151,64 @@ int main(void)
                 LGC_Init();
                 RDR_Render(1);
 
-                flag = PASS;
+                phrase = PASS;
 
                 break;
-            case TITLE:
-                if (PS2_GetDir() != STILL)
-                    flag = INIT;
-                else if (PS2_GetFire())
+            case PASS:
+                if (player.CD != 0)
                 {
-                    flag = ACK;
-                    RDR_PrintScreen(ACK);
+                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
+                } else
+                    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
+
+                uint8_t dir = PS2_GetDir();
+                uint8_t fire = PS2_GetPressed();
+
+                phrase = LGC_Tick(dir, fire);
+
+                RDR_Render(0);
+
+                Delay_ms(50);
+
+                break;
+            case WIN:
+                Delay_ms(800);
+
+                if (level + 1 < LVL_NUM)
+                {
+                    level++;
+                    phrase = INIT;
+                } else
+                {
+                    level = 0;
+                    PS2_ClearFlag();
+                    phrase = ACK;
                 }
                 break;
+            case LOSE:
+                Delay_ms(800);
+
+                level = 0;
+                PS2_ClearFlag();
+                phrase = TITLE;
+
+                break;
             default:
-                if (PS2_GetFire())
-                {
-                    flag = TITLE;
-                    RDR_PrintScreen(TITLE);
-                }
+                if (PS2_GetPressed())
+                    phrase = TITLE;
+                Delay_ms(500);
         }
+
+        if (phrase_buf != phrase)
+            switch (phrase)
+            {
+                case TITLE:
+                case INIT:
+                case ACK:
+                    LCD_Clear(WHITE);
+                default:
+                    break;
+            }
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
