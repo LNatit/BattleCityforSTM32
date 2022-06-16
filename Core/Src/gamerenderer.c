@@ -114,7 +114,6 @@ void RDR_PrintScreen()
             LCD_ShowString(30, 90, 210, 24, 24, "YOU LOSE :(");
             break;
         default:
-            // TODO: print acknowledgements
             POINT_COLOR = BLACK;
             LCD_ShowString(30, 90, 210, 24, 24, "ACKNOWLEDGEMENTS");
             POINT_COLOR = BROWN;

@@ -168,7 +168,7 @@ int main(void)
 
                 RDR_Render(0);
 
-                Delay_ms(50);
+                Delay_ms(80);
 
                 break;
             case WIN:

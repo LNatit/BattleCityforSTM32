@@ -635,17 +635,17 @@ uint8_t maps[LVL_NUM][41][41] =
                         {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}
                 }
         };
-// TODO: fill in level infos
+
 Level_Info infos[LVL_NUM] =
         {
-                {25, 37, {1, 4, 7, 10}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 4},
-                {25, 37, {1, 4, 7, 10}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 4},
-                {25, 37, {1, 4, 7, 10}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 4},
-                {25, 37, {1, 4, 7, 10}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 4},
-                {25, 37, {1, 4, 7, 10}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 4},
-                {25, 37, {1, 4, 7, 10}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 4},
-                {25, 37, {1, 4, 7, 10}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 4},
-                {25, 37, {1, 4, 7, 10}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 4}
+                {25, 37, {1, 13, 25, 37}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 4},
+                {25, 37, {1, 13, 25, 37}, {17, 1, 1, 17}, {RIGHT, DOWN, DOWN, LEFT}, 4},
+                {25, 37, {1, 1, 37, 37}, {1, 7, 1, 7}, {RIGHT, RIGHT, LEFT, LEFT}, 4},
+                {25, 37, {1, 1, 37, 37}, {1, 7, 1, 7}, {RIGHT, RIGHT, LEFT, LEFT}, 5},
+                {25, 37, {1, 13, 25, 37}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 5},
+                {25, 37, {1, 13, 25, 37}, {1, 1, 1, 1}, {DOWN, DOWN, DOWN, DOWN}, 5},
+                {25, 37, {7, 19, 31, 19}, {1, 1, 1, 10}, {DOWN, DOWN, DOWN, DOWN}, 6},
+                {25, 37, {1, 1, 37, 37}, {1, 7, 1, 7}, {RIGHT, DOWN, DOWN, LEFT}, 6}
         };
 
 extern uint8_t map[41][41];

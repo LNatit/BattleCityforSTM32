@@ -50,12 +50,12 @@ extern "C" {
 #define STILL   4
 
 
-#define PASS    0
-#define WIN     1
-#define LOSE    2
-#define TITLE   3
-#define INIT    4
-#define ACK     5
+#define PASS    0   /* 主循环 */
+#define WIN     1   /* 胜利 */
+#define LOSE    2   /* 失败 */
+#define TITLE   3   /* 标题界面 */
+#define INIT    4   /* 初始化 */
+#define ACK     5   /* 致谢 */
 
 #define LVL_NUM     8
 #define BULLET_NUM  12
